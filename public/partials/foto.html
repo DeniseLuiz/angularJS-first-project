@@ -1,0 +1,44 @@
+<div class="page-header text-center">
+    <h1>{{foto.titulo}}</h1>
+</div>
+
+<p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
+
+<form novalidate name="formulario" class="row" ng-submit="submeter()">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Título</label>
+            <input ng-model="foto.titulo" name="titulo" class="form-control" ng-required="true" ng-maxlength="20">
+            <span ng-show=" formulario.$submitted && formulario.titulo.$error.required" class="form-control alert-danger">Título Obrigatório</span>
+            <span ng-show=" formulario.$submitted && formulario.titulo.$error.maxlength">Máximo de 20 caracteres.</span>
+        </div>
+        <div class="form-group">
+            <label>URL</label>
+            <input ng-model="foto.url" name="url" class="form-control" ng-required="true">
+            <span ng-show=" formulario.$submitted && formulario.url.$error.required" class="form-control alert-danger">Url Obrigatório</span>
+        </div>
+        <div class="form-group">
+            <label>Descrição</label>
+            <textarea ng-model="foto.descricao" name="descricao" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Grupo</label>
+            <select name="grupo" class="form-control" ng-controller="GruposCtrl"
+            ng-model="foto.grupo"
+            ng-options="grupo._id as (grupo.nome | uppercase)  for grupo in grupos" required>
+                <options value="">Selecione o grupo</options>
+            </select>
+            <span ng-show=" formulario.$submitted && formulario.grupo.$error.required" class="form-control alert-danger">Grupo obrigatório</span>
+        </div>
+        <button ng-disabled="formulario.$invalid" type="submit" class="btn btn-info">Salvar</button>
+        <a href="/" class="btn btn-info" meu-focus focado="focado">Voltar</a>
+        <hr>
+    </div>
+    <div class="col-md-6">
+        <minha-foto url="{{foto.url}}" ng-required="true" titulo="{{foto.titulo}}" name=titulo>
+            <div class="imagem">
+                <img class="imagem-real" src="{{foto.url}}">
+            </div>
+        </minha-foto>
+    </div>
+</form>
